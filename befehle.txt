@@ -1,0 +1,34 @@
+kubectl apply -f pod.yaml
+
+kubectl get pods -n demo-namespace
+
+kubectl config set-context --current --namespace=demo-namespace
+
+kubectl delete pod demo-pod
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+  namespace: demo-namespace
+spec:
+  containers:
+  - name: demo-container
+    image: nginx:1.27.4
+EOF
+
+kubectl apply -f - <<EOF <<replace-with-manifest>> EOF
+
+kubectl get namespaces
+
+kubectl create namespace demo-namespace
+
+kubectl logs sidecar-example -c log-collector -f
+
+kubectl port-forward pods/sidecar-example 8080:80
+
+http://localhost:8080
+
+kubectl get pods -w
+
